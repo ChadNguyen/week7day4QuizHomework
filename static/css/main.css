@@ -1,0 +1,14 @@
+.question-box {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+  }
+  
+  .correct {
+    background-color: #c4f4c4;
+  }
+  
+  .incorrect {
+    background-color: #f4c4c4;
+  }
