@@ -10,22 +10,33 @@
     <link rel="stylesheet" href="./static/css/main.css">
 </head>
 <body>
+  <div class="mainContainer">
     <div class="quiz-container">
-        <h1>Quiz</h1>
-        <div class="questions-container"></div>
-        <!-- <button class="submit-btn">Submit Answers</button> -->
-        <div class="result-container"></div>
+      <div class="questions-container"></div>
+      <button class="submit-btn">Let's Tally Your Score</button>
+      <div class="result-container">
+      </div>
     </div>
-
-    <template id="question-template">
+  </div>
+  
+    <!-- <div class="quiz-container">
+        <div class="questions-container">
+        </div>
+        <button class="submit-btn">Let's Tally Your Score</button>
+        <div class="result-container">
+        </div>
+      </div> -->
+      
+    </div>
+      <template id="question-template">
         <div class="question-box">
           <div class="question-number"></div>
           <div class="question-text"></div>
           <div class="answer-options"></div>
-          <button class="submit-answer-btn">Submit</button>
+          <!-- <input type="text" class="answer-input"> -->
+          <button class="submit-answer-btn">Submit Choice</button>
         </div>
-    </template>
-
+      </template>
     <script src="./js/main.js"></script>
 </body>
 
