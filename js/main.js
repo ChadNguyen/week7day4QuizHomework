@@ -65,7 +65,6 @@ quizData.forEach((question, index) => {
   const questionNumber = questionBox.querySelector('.question-number')
   const questionText = questionBox.querySelector('.question-text')
   const answerOptions = questionBox.querySelector('.answer-options')
-  const answerInput = questionBox.querySelector('.answer-input')
   const submitAnswerBtn = questionBox.querySelector('.submit-answer-btn')
 
   questionNumber.textContent = `Question ${index + 1}:`
@@ -77,38 +76,26 @@ quizData.forEach((question, index) => {
     input.type = 'radio'
     input.name = `q${index + 1}`
     input.value = option
-    label.appendChild(input)
-    label.appendChild(document.createTextNode(option))
+    label.append(input, option)
     answerOptions.appendChild(label)
   })
 
   submitAnswerBtn.addEventListener('click', () => {
-    const selectedAnswer = questionBox.querySelector(`input[name="q${index + 1}"]:checked`)
-    if (selectedAnswer) {
-      if (typeof question.answer === 'string') {
-        if (selectedAnswer.value.toLowerCase() === question.answer.toLowerCase()) {
-          questionBox.classList.remove('incorrect')
-          questionBox.classList.add('correct')
-          numCorrect++
-        } else {
-          questionBox.classList.remove('correct')
-          questionBox.classList.add('incorrect')
-        }
-      } else if (Array.isArray(question.answer)) {
-        if (question.answer.some(ans => ans.toLowerCase() === selectedAnswer.value.toLowerCase())) {
-          questionBox.classList.remove('incorrect')
-          questionBox.classList.add('correct')
-          numCorrect++
-        } else {
-          questionBox.classList.remove('correct')
-          questionBox.classList.add('incorrect')
-        }
-      }
-      answerInput.disabled = true
-      submitAnswerBtn.disabled = true
-      answeredQuestions++
-    }
+    const selectedAnswer = answerOptions.querySelector('input:checked')
+    if (!selectedAnswer) return
+
+    const isCorrect = Array.isArray(question.answer)
+      ? question.answer.map(ans => ans.toLowerCase()).includes(selectedAnswer.value.toLowerCase())
+      : selectedAnswer.value.toLowerCase() === question.answer.toLowerCase()
+
+    questionBox.classList.toggle('correct', isCorrect)
+    questionBox.classList.toggle('incorrect', !isCorrect)
+    selectedAnswer.disabled = true
+    submitAnswerBtn.disabled = true
+    numCorrect += isCorrect ? 1 : 0
+    answeredQuestions++
   })
+
   questionsContainer.appendChild(questionBox)
 })
 
